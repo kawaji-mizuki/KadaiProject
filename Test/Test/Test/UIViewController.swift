@@ -44,7 +44,28 @@ final class ViewController: UIViewController {
 
         view.addSubview(stack)
     }
+    
+    //Modelを用意する
+    struct HotPepperResponse: Codable {
+        let results: Results
+    }
 
+    struct Results: Codable {
+        let shop: [Shop]
+    }
+
+    struct Shop: Codable {
+        let name: String?
+        let address: String?
+        let logoImage: String?
+
+        enum CodingKeys: String, CodingKey {
+            case name
+            case address
+            case logoImage = "logo_image"
+        }
+    }
+    
     //通信処理
     private func fetchAndShow() {
         let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json")!
@@ -80,21 +101,17 @@ final class ViewController: UIViewController {
             }
 
             do {
-                guard let jsonDict = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Dictionary変換失敗")
-                    return
-                }
+                let decoded = try JSONDecoder().decode(HotPepperResponse.self, from: data)
 
-                guard let results = jsonDict["results"] as? [String: Any],
-                      let shops = results["shop"] as? [[String: Any]],
-                      let firstShop = shops.first else {
+                guard let firstShop = decoded.results.shop.first else {
                     print("shop取得失敗")
                     return
                 }
 
-                let name = firstShop["name"] as? String ?? "不明"
-                let address = firstShop["address"] as? String ?? "不明"
-                let logo_image = firstShop["logo_image"] as? String ?? "不明"
+                let name = firstShop.name ?? "不明"
+                let address = firstShop.address ?? "不明"
+                let logo_image = firstShop.logoImage ?? "不明"
+
                 print("店舗名 =", name)
                 print("住所 =", address)
                 print("お店のロゴ =", logo_image)
