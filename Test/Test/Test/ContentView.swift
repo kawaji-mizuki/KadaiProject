@@ -1,19 +1,29 @@
 import SwiftUI
 import UIKit
 
-struct ViewControllerWrapper: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UIViewController {
-        ViewController()   // ← あなたが作ったUIKitのVC
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // 画面更新が必要な時だけ使う。今回は空でOK
-    }
-}
-
 struct ContentView: View {
+    @StateObject private var vm = ViewModel()
+
     var body: some View {
-        ViewControllerWrapper()
+        VStack {
+            
+            if vm.shopName.isEmpty {
+                Text("No image")
+            } else {
+                Text(vm.shopName)
+
+            }
+
+            if let tempimage = vm.loadImage {
+                Image(uiImage: tempimage)
+            } else {
+                Text("No Image")
+            }
+        }
+        .padding()
+        .onAppear {
+            vm.fetch()
+        }
     }
 }
 

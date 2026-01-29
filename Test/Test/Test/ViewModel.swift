@@ -1,75 +1,16 @@
-//
-//  UIViewController.swift
-//  Test
-//
-//  Created by Kawaji Mizuki on 2026/01/22.
-//
 
+import Foundation
 import UIKit
+import Combine
 
-final class ViewController: UIViewController {
+class ViewModel: ObservableObject {
 
-    // 表示用のUI部品
-    private let logoImageView = UIImageView()
-    private let loadedImageView = UIImageView()
-    private let shopname = UILabel()
+    // Viewが参照する状態（@Stateの代わり）
+    @Published var loadImage: UIImage?
+    @Published var shopName: String = ""
 
-    // 状態
-    private var logoImage: UIImage?
-    private var loadImage: UIImage?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-
-        setupUI()
-        fetchAndShow() // ← onAppear の中身をここへ
-    }
-
-    private func setupUI() {
-
-        // image views
-        logoImageView.contentMode = .scaleAspectFit
-        loadedImageView.contentMode = .scaleAspectFit
-
-        let stack = UIStackView(arrangedSubviews: [
-            logoImageView,
-            loadedImageView,
-            shopname
-
-        ])
-        stack.axis = .vertical
-        stack.spacing = 16
-        stack.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(stack)
-    }
-    
-    //Modelを用意する
-    struct HotPepperResponse: Codable {
-        let results: Results
-    }
-
-    struct Results: Codable {
-        let shop: [Shop]
-    }
-
-    struct Shop: Codable {
-        let name: String?
-        let address: String?
-        let logoImage: String?
-
-        enum CodingKeys: String, CodingKey {
-            case name
-            case address
-            case logoImage = "logo_image"
-        }
-    }
-    
-    //通信処理
-    private func fetchAndShow() {
+    func fetch() {
         let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json")!
-
         guard let url = components.url else {
             print("failed to build URL")
             return
@@ -80,7 +21,6 @@ final class ViewController: UIViewController {
                 print("URLSession error:", error.localizedDescription)
                 return
             }
-
             guard let http = response as? HTTPURLResponse else {
                 print("No HTTPURLResponse")
                 return
@@ -96,12 +36,16 @@ final class ViewController: UIViewController {
 
             UserDefaults.standard.set(jsonString, forKey: "hotpepper_json")
 
-            if UserDefaults.standard.string(forKey: "hotpepper_json") == nil {
-                print("UserDefaults に JSON が保存されていません")
-            }
-
             do {
                 let decoded = try JSONDecoder().decode(HotPepperResponse.self, from: data)
+                
+                let encodedData = try JSONEncoder().encode(decoded)
+                UserDefaults.standard.set(encodedData, forKey: "hotpepper_model")
+                print("UserDefaultsにモデル保存できた（bytes）:", encodedData.count)
+                
+                let restored = try JSONDecoder().decode(HotPepperResponse.self, from: encodedData)
+                print("デコード（復元）成功")
+                print("復元した店舗数:", restored.results.shop.count)
 
                 guard let firstShop = decoded.results.shop.first else {
                     print("shop取得失敗")
@@ -109,20 +53,17 @@ final class ViewController: UIViewController {
                 }
 
                 let name = firstShop.name ?? "不明"
-                let address = firstShop.address ?? "不明"
                 let logo_image = firstShop.logoImage ?? "不明"
-
                 print("店舗名 =", name)
-                print("住所 =", address)
                 print("お店のロゴ =", logo_image)
-                
-                //以下の処理はメインスレッドで実行
+
+
                 DispatchQueue.main.async {
-                    self.shopname.text = name
+                    self.shopName = name
                 }
 
                 if let logoURL = URL(string: logo_image) {
-                    let imageTask = URLSession.shared.dataTask(with: logoURL) { data, response, error in
+                    let imageTask = URLSession.shared.dataTask(with: logoURL) { data, _, error in
                         if let error = error {
                             print("URLSession error:", error.localizedDescription)
                             return
@@ -133,22 +74,10 @@ final class ViewController: UIViewController {
                             return
                         }
 
-                        // SwiftUIの self.logoImage = image の代わりに
-                        // UIKitでは imageView.image に代入する
-                        DispatchQueue.main.async {
-                            self.logoImage = image
-                            self.logoImageView.image = image
-                            self.logoImageView.isHidden = false
-                        }
-
                         self.saveLogoToTemp(image)
 
-                        // ここはUI更新もあるのでmainに寄せるのが安全
                         DispatchQueue.main.async {
                             self.loadImage = self.loadImagefromtemp(fileName: "logo.jpg")
-                            self.loadedImageView.image = self.loadImage
-
-
                         }
                     }
                     imageTask.resume()
@@ -160,8 +89,9 @@ final class ViewController: UIViewController {
         }
         task.resume()
     }
-    
- 
+
+    // ---- 以下 Temp 保存 / 読み込み（元コードをそのまま移動） ----
+
     private let logofilename = "logo.jpg"
 
     private func tempURLget() -> URL {
