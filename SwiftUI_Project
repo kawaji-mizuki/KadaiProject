@@ -1,0 +1,266 @@
+{\rtf1\ansi\ansicpg932\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset128 HiraginoSans-W4;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww37860\viewh17800\viewkind0
+\deftab560
+\pard\pardeftab560\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf0 \uc0\u35506 \u38988 \u65288 SwiftUI\u29256 \u65289 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\f1\b0\fs26 \cf0 \
+UIKit\uc0\u21069 \u25552 \u12398 \u35506 \u38988 \u12434 \u12289 SwiftUI\u21069 \u25552 \u12395 \u32622 \u12365 \u25563 \u12360 \u12427 \u12392 \u12371 \u12358 \u12394 \u12426 \u12414 \u12377 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 1\u65306 \u22522 \u26412 \u30340 \u12394 \u36890 \u20449 \u20966 \u29702 \u65288 SwiftUI\u29256 \u65289 \
+SwiftUI\uc0\u12450 \u12503 \u12522 \u12391 \u12289 iOS SDK\u65288 URLSession\u65289 \u12434 \u20351 \u12387 \u12390 API\u36890 \u20449 \u12434 \u34892 \u12387 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	ViewModel\uc0\u65288 ObservableObject\u65289 \u12434 \u20316 \u25104 \u12377 \u12427 \
+	\'95	\uc0\u36890 \u20449 \u20966 \u29702 \u12399 ViewModel\u20869 \u12395 \u26360 \u12367 \
+	\'95	ContentView \uc0\u12398  .task \{\} \u12418 \u12375 \u12367 \u12399  .onAppear \{\} \u12363 \u12425 \u21628 \u12403 \u20986 \u12377 \
+	\'95	responseCode = 200 \uc0\u12364 \u21462 \u24471 \u12391 \u12365 \u12427 \u12371 \u12392 \u12434 \u12467 \u12531 \u12477 \u12540 \u12523 \u12391 \u30906 \u35469 \u12377 \u12427 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 2\u65306 JSON\u12487 \u12540 \u12479 \u12398 \u21462 \u24471 \
+\uc0\u35506 \u38988 1\u12391 \u21462 \u24471 \u12375 \u12383 \u12524 \u12473 \u12509 \u12531 \u12473 \u12487 \u12540 \u12479 \u65288 Data\u65289 \u12434 \u12289 \u25991 \u23383 \u21015 \u65288 String\u65289 \u12395 \u22793 \u25563 \u12375 \u12390 \u20986 \u21147 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	String(data: data, encoding: .utf8) \uc0\u12434 \u20351 \u12358 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 3\u65306 UserDefaults\u12408 \u12398 \u20445 \u23384 \
+\uc0\u35506 \u38988 2\u12391 \u21462 \u24471 \u12375 \u12383 JSON\u25991 \u23383 \u21015 \u12434 \u12289 UserDefaults\u12395 \u20445 \u23384 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	Key\uc0\u12399 \u20219 \u24847 \u65288 \u20363 \u65306 "hotpepper_json"\u65289 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 4\u65306 UserDefaults\u12363 \u12425 \u12398 \u21462 \u24471 \
+\uc0\u35506 \u38988 3\u12391 \u20445 \u23384 \u12375 \u12383 JSON\u25991 \u23383 \u21015 \u12434 UserDefaults\u12363 \u12425 \u21462 \u24471 \u12375 \u12390 \u12289 \u20877 \u24230 \u12467 \u12531 \u12477 \u12540 \u12523 \u12395 \u34920 \u31034 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 5\u65306 JSON\u12398 Dictionary\u22793 \u25563 \
+\uc0\u35506 \u38988 4\u12391 \u21462 \u24471 \u12375 \u12383 JSON\u25991 \u23383 \u21015 \u12434 Decode\u12375 \u12390 \u12289 Dictionary\u22411 \u65288 
+\fs24 [String: Any]
+\fs26 \uc0\u65289 \u12395 \u22793 \u25563 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	1\uc0\u24215 \u33303 \u20998 \u12398 \u24773 \u22577 \u12434 \u21462 \u12426 \u20986 \u12375 \u12390 \u12415 \u12427 \
+	\'95	\uc0\u24215 \u33303 \u21517 \u12289 \u20303 \u25152 \u12289 \u12525 \u12468 URL\u12434 \u21462 \u24471 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 6\u65306 \u30011 \u20687 URL\u12398 \u21462 \u24471 \
+\uc0\u35506 \u38988 5\u12391 \u21462 \u24471 \u12375 \u12383 \u24215 \u33303 \u24773 \u22577 \u12363 \u12425 \u12289 \u12525 \u12468 \u30011 \u20687 \u12398 URL\u12434 \u21462 \u24471 \u12375 \u12390 \u12467 \u12531 \u12477 \u12540 \u12523 \u12395 \u20986 \u21147 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 7\u65306 \u30011 \u20687 \u12398 \u36890 \u20449 \u21462 \u24471 \
+\uc0\u35506 \u38988 6\u12391 \u21462 \u24471 \u12375 \u12383 URL\u12434 \u20351 \u12387 \u12390 \u12289 \u30011 \u20687 \u12487 \u12540 \u12479 \u12434 \u36890 \u20449 \u12391 \u21462 \u24471 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	Data\uc0\u12392 \u12375 \u12390 \u21462 \u24471 \u12391 \u12365 \u12427 \u12371 \u12392 \u12434 \u30906 \u35469 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 8\u65306 \u30011 \u20687 \u12398 \u20445 \u23384 \
+\uc0\u35506 \u38988 7\u12391 \u21462 \u24471 \u12375 \u12383 \u30011 \u20687 \u12434 \u12289 Temp\u38936 \u22495 \u12395 \u20445 \u23384 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	FileManager.default.temporaryDirectory \uc0\u12434 \u20351 \u29992 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 9\u65306 \u20445 \u23384 \u30011 \u20687 \u12398 \u21462 \u24471 \
+\uc0\u35506 \u38988 8\u12391 \u20445 \u23384 \u12375 \u12383 \u30011 \u20687 \u12434 \u12289 Temp\u38936 \u22495 \u12363 \u12425 \u20877 \u24230 \u35501 \u12415 \u36796 \u12435 \u12391 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	UIImage\uc0\u12395 \u22793 \u25563 \u12391 \u12365 \u12427 \u12371 \u12392 \u12434 \u30906 \u35469 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 10\u65306 \u30011 \u20687 \u12398 \u34920 \u31034 \u65288 SwiftUI\u29256 \u65289 \
+\uc0\u35506 \u38988 9\u12391 \u21462 \u24471 \u12375 \u12383 \u30011 \u20687 \u12434 \u12289 SwiftUI\u12398 View\u12391 \u34920 \u31034 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	Image(uiImage:) \uc0\u12434 \u20351 \u29992 \
+	\'95	if let \uc0\u12391 \u34920 \u31034 \u12434 \u20999 \u12426 \u26367 \u12360 \u12427 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 11\u65306 \u24215 \u33303 \u21517 \u12398 \u34920 \u31034 \u65288 SwiftUI\u29256 \u65289 \
+\uc0\u35506 \u38988 5\u12391 \u21462 \u24471 \u12375 \u12383 \u24215 \u33303 \u21517 \u12434 \u12289 SwiftUI\u12398 Text\u12391 \u30011 \u38754 \u12395 \u34920 \u31034 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	Text(shopName)\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 12\u65306 Codable\u12514 \u12487 \u12523 \u12398 \u20316 \u25104 \
+\uc0\u35506 \u38988 5\u12398 Dictionary\u12505 \u12540 \u12473 \u20966 \u29702 \u12434 \u12420 \u12417 \u12390 \u12289 \
+Decodable / Codable \uc0\u12434 \u32153 \u25215 \u12375 \u12383 Model\u65288 struct\u65289 \u12391 JSON\u12434 Decode\u12377 \u12427 \u12424 \u12358 \u12395 \u22793 \u26356 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	HotPepperResponse\
+	\'95	Results\
+	\'95	Shop\
+\
+\uc0\u12434 \u20316 \u25104 \u12377 \u12427 \u12290 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 13\u65306 Codable\u12514 \u12487 \u12523 \u12398 \u20445 \u23384 \
+\uc0\u35506 \u38988 12\u12391 Decode\u12375 \u12383 \u12514 \u12487 \u12523 \u12434 \u12289 JSONEncoder\u12391 \u12456 \u12531 \u12467 \u12540 \u12489 \u12375 \u12390 UserDefaults\u12395 \u20445 \u23384 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	Data\uc0\u12391 \u20445 \u23384 \u12375 \u12390 \u12418 \u12289 String\u12395 \u12375 \u12390 \u20445 \u23384 \u12375 \u12390 \u12418 OK\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 14\u65306 Codable\u12514 \u12487 \u12523 \u12398 \u24489 \u20803 \
+\uc0\u35506 \u38988 13\u12391 \u20445 \u23384 \u12375 \u12383 \u20869 \u23481 \u12434 \u12289 \u20877 \u24230 JSONDecoder\u12391 Decode\u12375 \u12390 \u12514 \u12487 \u12523 \u12395 \u25147 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	\uc0\u24215 \u33303 \u21517 \u12394 \u12393 \u12434 \u21462 \u12426 \u20986 \u12379 \u12427 \u12371 \u12392 \u12434 \u30906 \u35469 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 15\u65306 \u12456 \u12521 \u12540 \u20966 \u29702 \u12398 \u23455 \u35013 \
+API\uc0\u12497 \u12521 \u12513 \u12540 \u12479 \u12434 \u12431 \u12374 \u12392 \u22730 \u12375 \u12390 \u12289 \u12456 \u12521 \u12540 \u12364 \u36820 \u12427 \u12424 \u12358 \u12395 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u20363 \u65306 \
+\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\fs24 \cf0 https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z0111
+\fs26 \
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	\uc0\u36890 \u20449 \u12364 \u22833 \u25943 \u12377 \u12427 \u12465 \u12540 \u12473 \u12434 \u20316 \u12427 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 16\u65306 \u12456 \u12521 \u12540 \u24773 \u22577 \u12398 \u34920 \u31034 \u65288 \u12467 \u12531 \u12477 \u12540 \u12523 \u65289 \
+\uc0\u35506 \u38988 15\u12391 \u21462 \u24471 \u12375 \u12383 \u12456 \u12521 \u12540 \u24773 \u22577 \u12434 \u12289 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	HTTP\uc0\u12473 \u12486 \u12540 \u12479 \u12473 \u12467 \u12540 \u12489 \
+	\'95	\uc0\u12456 \u12521 \u12540 \u12513 \u12483 \u12475 \u12540 \u12472 \
+\
+\uc0\u12392 \u12375 \u12390 \u12467 \u12531 \u12477 \u12540 \u12523 \u12395 \u20986 \u21147 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u8251 StatusCode = 200 \u12391 \u12418 \u12456 \u12521 \u12540 JSON\u12364 \u36820 \u12427 \u12465 \u12540 \u12473 \u12434 \u24819 \u23450 \u12290 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 17\u65306 SwiftUI Alert\u12391 \u12398 \u12456 \u12521 \u12540 \u34920 \u31034 \
+\uc0\u35506 \u38988 16\u12398 \u12456 \u12521 \u12540 \u24773 \u22577 \u12434 \u12289 SwiftUI\u12398  
+\fs24 .alert
+\fs26  \uc0\u12434 \u20351 \u12387 \u12390 \u30011 \u38754 \u12395 \u34920 \u31034 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	UIKit\uc0\u12398 UIAlertController\u12398 \u20195 \u26367 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 18\u65306 \u26465 \u20214 \u20998 \u23696 \u12398 \u23455 \u35013 \u65288 \u27491 \u24120 \u65295 \u30064 \u24120 \u65289 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	\uc0\u27491 \u24120 \u26178 \
+	\'95	\uc0\u24215 \u33303 \u21517 \u12392 \u30011 \u20687 \u12434 \u30011 \u38754 \u12395 \u34920 \u31034 \
+	\'95	\uc0\u12456 \u12521 \u12540 \u26178 \
+	\'95	Alert\uc0\u12434 \u34920 \u31034 \
+\
+View\uc0\u12399 \u29366 \u24907 \u65288 @Published / @State\u65289 \u12395 \u24540 \u12376 \u12390 \u20999 \u12426 \u26367 \u12431 \u12427 \u12424 \u12358 \u12395 \u12377 \u12427 \u12290 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 19\u65306 \u12479 \u12452 \u12512 \u12450 \u12454 \u12488 \u20966 \u29702 \
+Wi-Fi\uc0\u12434 \u12458 \u12501 \u12395 \u12375 \u12390 \u36890 \u20449 \u12434 \u23455 \u34892 \u12375 \u12289 \u12479 \u12452 \u12512 \u12450 \u12454 \u12488 \u12434 \u12495 \u12531 \u12489 \u12522 \u12531 \u12464 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	URLSessionConfiguration.timeoutIntervalForRequest \uc0\u12434 \u30701 \u12367 \u35373 \u23450 \u12375 \u12390 \u35430 \u12377 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 20\u65306 HTTP\u12456 \u12521 \u12540 \u12495 \u12531 \u12489 \u12522 \u12531 \u12464 \
+StatusCode \uc0\u12364  200\u12316 399 \u20197 \u22806 \u12398 \u22580 \u21512 \u12434 \u12456 \u12521 \u12540 \u12392 \u12375 \u12390 \u25201 \u12387 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	\uc0\u20363 \u65306 400, 401, 500 \u12394 \u12393 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 21\u65306 HTTP\u12456 \u12521 \u12540 \u12398 \u34920 \u31034 \u65288 SwiftUI\u29256 \u65289 \
+\uc0\u35506 \u38988 20\u12391 \u12495 \u12531 \u12489 \u12522 \u12531 \u12464 \u12375 \u12383 HTTP\u12456 \u12521 \u12540 \u12434 \u12289 SwiftUI\u12398 Alert\u12391 \u34920 \u31034 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u12371 \u12371 \u12414 \u12391 \u12391 \u12300 \u36890 \u20449 \u12539 \u20445 \u23384 \u12539 \u24489 \u20803 \u12539 \u34920 \u31034 \u12539 \u12456 \u12521 \u12540 \u20966 \u29702 \u12301 \u12414 \u12391 \u19968 \u36890 \u12426 SwiftUI\u12391 \u23436 \u32080 \u12375 \u12414 \u12377 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u65288 UI\u25313 \u24373 \u32232 \u65289 \
+\
+\uc0\u35506 \u38988 22\u65306 DetailView\u12398 \u20316 \u25104 \
+\uc0\u35506 \u38988 10\u12391 \u20316 \u12387 \u12383 \u30011 \u38754 \u12434  
+\fs24 DetailView
+\fs26  \uc0\u12392 \u12356 \u12358 SwiftUI View\u12392 \u12375 \u12390 \u20999 \u12426 \u20986 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 23\u65306 \u26032 \u35215 ListView\u12398 \u20316 \u25104 \
+\uc0\u12450 \u12503 \u12522 \u36215 \u21205 \u26178 \u12395 \u34920 \u31034 \u12373 \u12428 \u12427  
+\fs24 ListView
+\fs26  \uc0\u12434 \u20316 \u25104 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 24\u65306 \u36890 \u20449 \u12514 \u12472 \u12517 \u12540 \u12523 \u12398 \u31227 \u26893 \
+DetailView\uc0\u12391 \u20351 \u12387 \u12390 \u12356 \u12383 \u36890 \u20449 \u12525 \u12472 \u12483 \u12463 \u12434 \u12289 ListView\u29992 ViewModel\u12395 \u12418 \u31227 \u26893 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 25\u65306 ListView\u12391 \u12398 \u36890 \u20449 \u23455 \u34892 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\fs24 \cf0 ListView.task \{\}
+\fs26  \uc0\u12391 \u36890 \u20449 \u20966 \u29702 \u12434 \u23455 \u34892 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 26\u65306 List\u12398 \u36861 \u21152 \
+SwiftUI\uc0\u12398  
+\fs24 List
+\fs26  \uc0\u12434 \u20351 \u12387 \u12390 \u12289 \u24215 \u33303 \u24773 \u22577 \u12398 \u19968 \u35239 \u12434 \u34920 \u31034 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\
+\uc0\u11835 \
+\
+\uc0\u35506 \u38988 27\u65306 \u30011 \u38754 \u36983 \u31227 \
+List\uc0\u12398 \u34892 \u12434 \u12479 \u12483 \u12503 \u12377 \u12427 \u12392 \u12289 DetailView\u12408 \u36983 \u31227 \u12377 \u12427 \u12424 \u12358 \u12395 \u12375 \u12390 \u12415 \u12424 \u12358 \u12290 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	NavigationStack + NavigationLink \uc0\u12434 \u20351 \u29992 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\uc0\u11835 \
+\
+\uc0\u12371 \u12428 \u12391 SwiftUI\u29256 \u12399 \u12289 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	UIKit\uc0\u12398 \u12300 ViewController\u12301 \u12300 Storyboard\u12301 \u12300 UITableView\u12301 \u12300 UIAlertController\u12301 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \uc0\u12434 \u12377 \u12409 \u12390 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 	\'95	SwiftUI\uc0\u12398 \u12300 View\u12301 \u12300 ObservableObject\u12301 \u12300 List\u12301 \u12300 Alert\u12301 \u12300 Navigation\u12301 \
+\
+\pard\pardeftab560\li440\slleading20\partightenfactor0
+
+\f2 \cf0 \'82\'c9\'92\'75\'82\'ab\'8a\'b7\'82\'a6\'82\'bd\'8d\'5c\'90\'ac\'82\'c9\'82\'c8\'82\'e8\'82\'dc\'82\'b7\'81\'42}
