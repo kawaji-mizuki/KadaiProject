@@ -12,7 +12,13 @@ struct HotPepperResponse: Codable {
 }
 
 struct Results: Codable {
-    let shop: [Shop]
+    let shop: [Shop]?
+    let error: String?
+}
+
+struct error: Codable {
+    let code: String?
+    let message: String?
 }
 
 struct Shop: Codable {
