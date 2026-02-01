@@ -10,11 +10,12 @@ class ViewModel: ObservableObject {
     @Published var shopName: String = ""
 
     func fetch() {
-        let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json")!
+        let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json")!
         guard let url = components.url else {
             print("failed to build URL")
             return
         }
+        // "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json"
 
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -33,11 +34,19 @@ class ViewModel: ObservableObject {
                 print("JSONデータを文字列に変換できませんでした")
                 return
             }
-
             UserDefaults.standard.set(jsonString, forKey: "hotpepper_json")
 
             do {
                 let decoded = try JSONDecoder().decode(HotPepperResponse.self, from: data)
+                
+                //エラーコード表示
+                if let errors = decoded.results.error, let first = errors.first {
+                    print("=== API Error ===")
+                    print("HTTP StatusCode =", http.statusCode)
+                    print("API Error Code =", first.code ?? "nil")
+                    print("API Error Message =", first.message ?? "nil")
+                    return
+                }
                 
                 let encodedData = try JSONEncoder().encode(decoded)
                 UserDefaults.standard.set(encodedData, forKey: "hotpepper_model")
@@ -45,9 +54,18 @@ class ViewModel: ObservableObject {
                 
                 let restored = try JSONDecoder().decode(HotPepperResponse.self, from: encodedData)
                 print("デコード（復元）成功")
-                print("復元した店舗数:", restored.results.shop.count)
+                
+                //オプショナルバインディング
+                if let countshops = restored.results.shop{
+                    print("復元した店舗数:", countshops.count)
+                }
+                else {
+                    print("復元した店舗数は取得できませんでした")
+                }
 
-                guard let firstShop = decoded.results.shop.first else {
+                
+                let shops = decoded.results.shop ?? []  //Nill合体演算▶︎なかった時は空配列に置き換え
+                guard let firstShop = shops.first else {
                     print("shop取得失敗")
                     return
                 }
@@ -85,6 +103,7 @@ class ViewModel: ObservableObject {
 
             } catch {
                 print("JSON Decode失敗:", error)
+                
             }
         }
         task.resume()
