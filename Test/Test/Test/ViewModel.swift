@@ -8,6 +8,8 @@ class ViewModel: ObservableObject {
     // Viewが参照する状態（@Stateの代わり）
     @Published var loadImage: UIImage?
     @Published var shopName: String = ""
+    @Published var ErrorAlert: Bool = false
+    @Published var ErrorMessage: String = ""
 
     func fetch() {
         let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json")!
@@ -15,11 +17,37 @@ class ViewModel: ObservableObject {
             print("failed to build URL")
             return
         }
-        // "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json"
+        // https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json
+        // https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json
 
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("URLSession error:", error.localizedDescription)
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5
+        config.timeoutIntervalForResource = 5
+        let session = URLSession(configuration: config)
+        
+        let task = session.dataTask(with: url) { data, response, error in
+
+            // ✅ 課題19：通信エラー（Wi-Fiオフ/タイムアウト等）
+            if let error = error as? URLError {
+                let message: String
+
+                switch error.code {
+                case .notConnectedToInternet:
+                    message = "インターネットに接続されていません（Wi-Fi/通信を確認してください）"
+                case .timedOut:
+                    message = "通信がタイムアウトしました（時間内に応答がありませんでした）"
+                case .cannotFindHost, .cannotConnectToHost, .dnsLookupFailed:
+                    message = "サーバーに接続できませんでした（ネットワークを確認してください）"
+                default:
+                    message = "通信エラー: \(error.localizedDescription)"
+                }
+
+                DispatchQueue.main.async {
+                    self.ErrorMessage = message
+                    self.ErrorAlert = true
+                    self.shopName = ""
+                    self.loadImage = nil
+                }
                 return
             }
             guard let http = response as? HTTPURLResponse else {
@@ -43,8 +71,14 @@ class ViewModel: ObservableObject {
                 if let errors = decoded.results.error, let first = errors.first {
                     print("=== API Error ===")
                     print("HTTP StatusCode =", http.statusCode)
-                    print("API Error Code =", first.code ?? "nil")
+                    print("API Error Code =", first.code ?? -1)
                     print("API Error Message =", first.message ?? "nil")
+                    
+                    DispatchQueue.main.async {
+                        self.ErrorMessage = "(\(first.code ?? -1)) \(first.message ?? "")"
+                        self.ErrorAlert = true
+                    }
+                    
                     return
                 }
                 
@@ -109,7 +143,7 @@ class ViewModel: ObservableObject {
         task.resume()
     }
 
-    // ---- 以下 Temp 保存 / 読み込み（元コードをそのまま移動） ----
+    //Temp 保存 / 読み込み
 
     private let logofilename = "logo.jpg"
 

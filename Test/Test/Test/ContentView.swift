@@ -24,6 +24,11 @@ struct ContentView: View {
         .onAppear {
             vm.fetch()
         }
+        .alert("エラー", isPresented: $vm.ErrorAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(vm.ErrorMessage)
+        }
     }
 }
 
