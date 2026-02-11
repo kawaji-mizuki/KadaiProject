@@ -12,13 +12,14 @@ class ViewModel: ObservableObject {
     @Published var ErrorMessage: String = ""
 
     func fetch() {
-        let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json")!
+        let components = URLComponents(string: "https://www.google.com/xxxxxx")!
         guard let url = components.url else {
             print("failed to build URL")
             return
         }
-        // https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json
-        // https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json
+        //オリジナル： https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json
+        //APIエラー用： https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json
+        //HTTPエラー用： https://www.google.com/xxxxxx
 
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 5
@@ -27,7 +28,7 @@ class ViewModel: ObservableObject {
         
         let task = session.dataTask(with: url) { data, response, error in
 
-            // ✅ 課題19：通信エラー（Wi-Fiオフ/タイムアウト等）
+            // 通信エラー（Wi-Fiオフ/タイムアウト等）
             if let error = error as? URLError {
                 let message: String
 
@@ -36,17 +37,14 @@ class ViewModel: ObservableObject {
                     message = "インターネットに接続されていません（Wi-Fi/通信を確認してください）"
                 case .timedOut:
                     message = "通信がタイムアウトしました（時間内に応答がありませんでした）"
-                case .cannotFindHost, .cannotConnectToHost, .dnsLookupFailed:
-                    message = "サーバーに接続できませんでした（ネットワークを確認してください）"
                 default:
-                    message = "通信エラー: \(error.localizedDescription)"
+                    message = "その他の通信エラー"
+                    print(error.code)
                 }
 
                 DispatchQueue.main.async {
                     self.ErrorMessage = message
                     self.ErrorAlert = true
-                    self.shopName = ""
-                    self.loadImage = nil
                 }
                 return
             }
@@ -56,7 +54,20 @@ class ViewModel: ObservableObject {
             }
             print("URL =", url.absoluteString)
             print("ResponseCode =", http.statusCode)
+            
+            //課題２０　HTTPエラーハンドリング
+            guard (200...399).contains(http.statusCode) else {
+                let message = "HTTPエラー: \(http.statusCode)"
+                print(message)
 
+                DispatchQueue.main.async {
+                    self.ErrorMessage = message
+                    self.ErrorAlert = true
+                }
+                return
+            }
+            
+            
             guard let data = data,
                   let jsonString = String(data: data, encoding: .utf8) else {
                 print("JSONデータを文字列に変換できませんでした")
