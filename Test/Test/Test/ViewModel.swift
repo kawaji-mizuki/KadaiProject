@@ -1,18 +1,17 @@
-
 import Foundation
 import UIKit
 import Combine
 
 class ViewModel: ObservableObject {
-
+    
     // Viewが参照する状態（@Stateの代わり）
     @Published var loadImage: UIImage?
     @Published var shopName: String = ""
     @Published var ErrorAlert: Bool = false
     @Published var ErrorMessage: String = ""
-
+    
     func fetch() {
-        let components = URLComponents(string: "https://www.google.com/xxxxxx")!
+        let components = URLComponents(string: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json")!
         guard let url = components.url else {
             print("failed to build URL")
             return
@@ -20,18 +19,18 @@ class ViewModel: ObservableObject {
         //オリジナル： https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=6e933c6b4a0b50e7&large_area=Z011&format=json
         //APIエラー用： https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json
         //HTTPエラー用： https://www.google.com/xxxxxx
-
+        
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 5
         config.timeoutIntervalForResource = 5
         let session = URLSession(configuration: config)
         
         let task = session.dataTask(with: url) { data, response, error in
-
+            
             // 通信エラー（Wi-Fiオフ/タイムアウト等）
             if let error = error as? URLError {
                 let message: String
-
+                
                 switch error.code {
                 case .notConnectedToInternet:
                     message = "インターネットに接続されていません（Wi-Fi/通信を確認してください）"
@@ -41,7 +40,7 @@ class ViewModel: ObservableObject {
                     message = "その他の通信エラー"
                     print(error.code)
                 }
-
+                
                 DispatchQueue.main.async {
                     self.ErrorMessage = message
                     self.ErrorAlert = true
@@ -59,7 +58,7 @@ class ViewModel: ObservableObject {
             guard (200...399).contains(http.statusCode) else {
                 let message = "HTTPエラー: \(http.statusCode)"
                 print(message)
-
+                
                 DispatchQueue.main.async {
                     self.ErrorMessage = message
                     self.ErrorAlert = true
@@ -74,7 +73,7 @@ class ViewModel: ObservableObject {
                 return
             }
             UserDefaults.standard.set(jsonString, forKey: "hotpepper_json")
-
+            
             do {
                 let decoded = try JSONDecoder().decode(HotPepperResponse.self, from: data)
                 
@@ -107,24 +106,29 @@ class ViewModel: ObservableObject {
                 else {
                     print("復元した店舗数は取得できませんでした")
                 }
-
                 
-                let shops = decoded.results.shop ?? []  //Nill合体演算▶︎なかった時は空配列に置き換え
+                
+                
+                let shops = decoded.results.shop ?? [] //Nill合体演算▶︎なかった時は空配列に置き換え
                 guard let firstShop = shops.first else {
                     print("shop取得失敗")
                     return
                 }
-
+                
                 let name = firstShop.name ?? "不明"
                 let logo_image = firstShop.logoImage ?? "不明"
+                
                 print("店舗名 =", name)
                 print("お店のロゴ =", logo_image)
-
-
+                
+                
+                
                 DispatchQueue.main.async {
                     self.shopName = name
                 }
-
+                
+                
+                
                 if let logoURL = URL(string: logo_image) {
                     let imageTask = URLSession.shared.dataTask(with: logoURL) { data, _, error in
                         if let error = error {
@@ -136,16 +140,16 @@ class ViewModel: ObservableObject {
                             print("画像取得: decode failed")
                             return
                         }
-
+                        
                         self.saveLogoToTemp(image)
-
+                        
                         DispatchQueue.main.async {
                             self.loadImage = self.loadImagefromtemp(fileName: "logo.jpg")
                         }
                     }
                     imageTask.resume()
                 }
-
+                
             } catch {
                 print("JSON Decode失敗:", error)
                 
@@ -153,19 +157,20 @@ class ViewModel: ObservableObject {
         }
         task.resume()
     }
-
+    
     //Temp 保存 / 読み込み
-
+    
     private let logofilename = "logo.jpg"
-
+    
     private func tempURLget() -> URL {
+        
         FileManager.default.temporaryDirectory
     }
-
+    
     private func tempURLcreate() -> URL {
         tempURLget().appendingPathComponent(logofilename)
     }
-
+    
     private func saveLogoToTemp(_ image: UIImage) {
         let url = tempURLcreate()
         guard let data = image.jpegData(compressionQuality: 0.9) else {
@@ -179,7 +184,7 @@ class ViewModel: ObservableObject {
             print("Temp保存失敗:", error)
         }
     }
-
+    
     private func loadImagefromtemp(fileName: String) -> UIImage? {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
         guard FileManager.default.fileExists(atPath: url.path) else {

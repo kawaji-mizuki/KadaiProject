@@ -1,8 +1,7 @@
+// TestApp.swift
+// Test
 //
-//  TestApp.swift
-//  Test
-//
-//  Created by Kawaji Mizuki on 2026/01/20.
+// Created by Mizuki Kawaji on 2026/01/15.
 //
 
 import SwiftUI
@@ -11,8 +10,7 @@ import SwiftUI
 struct TestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView() // 既存の ContentView をルートに
-            
+            NewView()
         }
     }
 }

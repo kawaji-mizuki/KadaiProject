@@ -1,9 +1,9 @@
 import SwiftUI
 import UIKit
 
-struct ContentView: View {
+struct DetailView: View {
     @StateObject private var vm = ViewModel()
-
+    
     var body: some View {
         VStack {
             
@@ -11,9 +11,9 @@ struct ContentView: View {
                 Text("No image")
             } else {
                 Text(vm.shopName)
-
+                
             }
-
+            
             if let tempimage = vm.loadImage {
                 Image(uiImage: tempimage)
             } else {
@@ -33,5 +33,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    DetailView()
 }
