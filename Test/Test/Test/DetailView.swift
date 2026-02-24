@@ -6,14 +6,14 @@ struct DetailView: View {
     
     var body: some View {
         VStack {
-            
+            //店名表示
             if vm.shopName.isEmpty {
                 Text("No image")
             } else {
                 Text(vm.shopName)
                 
             }
-            
+            //店画像表示
             if let tempimage = vm.loadImage {
                 Image(uiImage: tempimage)
             } else {
@@ -21,6 +21,7 @@ struct DetailView: View {
             }
         }
         .padding()
+        //VM実行
         .onAppear {
             vm.fetch()
         }

@@ -20,6 +20,7 @@ class ViewModel: ObservableObject {
         //APIエラー用： https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=sample&large_area=Z011&format=json
         //HTTPエラー用： https://www.google.com/xxxxxx
         
+        //URLSessionのタイムアウト設定
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 5
         config.timeoutIntervalForResource = 5
@@ -99,7 +100,7 @@ class ViewModel: ObservableObject {
                 let restored = try JSONDecoder().decode(HotPepperResponse.self, from: encodedData)
                 print("デコード（復元）成功")
                 
-                //オプショナルバインディング
+                
                 if let countshops = restored.results.shop{
                     print("復元した店舗数:", countshops.count)
                 }
@@ -121,14 +122,11 @@ class ViewModel: ObservableObject {
                 print("店舗名 =", name)
                 print("お店のロゴ =", logo_image)
                 
-                
-                
                 DispatchQueue.main.async {
                     self.shopName = name
                 }
                 
-                
-                
+                //ロゴ表示(画像保存して読み込む)
                 if let logoURL = URL(string: logo_image) {
                     let imageTask = URLSession.shared.dataTask(with: logoURL) { data, _, error in
                         if let error = error {
